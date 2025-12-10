@@ -2,16 +2,21 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #2F4F4F
+}
+
 .container {
-    background-color: red;
+    background-color: #8B0000;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 600px;
-    height: 600px;
-    margin: auto;
-    border-radius: 16px;
+    width: 800px;
+    height: 800px;
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 7px 5px 5px #000000, 8px 8px 2px rgba(255, 255, 255, 0.5) inset, -10px -10px 2px rgba(0, 0, 0, 0.2) inset;
 }
 
 .header-container,
@@ -19,8 +24,13 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding-left: 52px;
-    padding-right: 52px;
+    margin: auto;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.tools {
+    justify-content: space-between;
 }
 
 .spacer {
@@ -30,6 +40,11 @@
 .header {
     flex: 1;
     text-align: center;
+    align-items: center;
+    -webkit-text-stroke-color: #B5A080;
+    -webkit-text-stroke-width: 1px;
+    font-size: 36px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .resize-btn-container {
@@ -40,9 +55,9 @@
 #grid {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
-    width: 500px;
-    height: 500px;
+    width: 650px;
+    height: 650px;
+    border-radius: 6px;
 }
 
 .row {
@@ -53,19 +68,30 @@
 .square-container {
     position: relative;
     flex: 1;
-    border: 1px solid #AAAAAA;
 }
 
 .darken-square {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
     bottom: 0;
+    right: 0;
     pointer-events: none;
 }
 
-.square {
+.colour-square {
     width: 100%;
     height: 100%;
+}
+
+.grid-lines {
+    border: 1px solid #C1C1C1;
+}
+
+.dial {
+    width: 65px;
+    height: 65px;
+    background-color: #F0F0F0;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

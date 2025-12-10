@@ -2,13 +2,18 @@
     const resizeBtn = document.querySelector(".resize-btn");
     const grid = document.getElementById("grid");
     const colourPicker = document.getElementById("colour");
-    let colour = colourPicker.value;
-    const randomBtn = document.getElementById("random");
-    const darkenBtn = document.getElementById("darken");
-    let random = false;
-    let darken = false;
+    let chosenColour = colourPicker.value;
+    const buttons = document.querySelectorAll("button");
+    const colourBtn = document.getElementById("colour-btn");
+    const randomBtn = document.getElementById("random-btn");
+    const darkenBtn = document.getElementById("darken-btn");
+    const eraserBtn = document.getElementById("eraser-btn");
+    const gridBtn = document.getElementById("grid-btn");
+    const clearBtn = document.getElementById("clear-btn");
 
-    const defaultColour = "#FFFFFF";
+    let gridLines = true;
+
+    const DEFAULT_COLOUR = "#DBDBDB";
 
     let gridSize = 16;
     generateGrid(gridSize);
@@ -25,29 +30,35 @@
 
             for (let j = 0; j < gridSize; j++) {
                 const container = document.createElement("div");
-                container.className = "square-container";
+                container.classList.add("square-container");
+                container.classList.add("grid-lines");
 
                 const darkenSquare = document.createElement("div");
-                darkenSquare.className = "darken-square";
+                darkenSquare.classList.add("square");
+                darkenSquare.classList.add("darken-square");
                 darkenSquare.style.backgroundColor = "rgba(0,0,0,0)";
                 darkenSquare.dataset.alpha = "0";
 
-                const square = document.createElement("div");
-                square.className = "square";
-                square.style.backgroundColor = defaultColour;
-                square.addEventListener("mouseenter", () => {
-                    if (random) {
+                const colourSquare = document.createElement("div");
+                colourSquare.classList.add("square");
+                colourSquare.classList.add("colour-square");
+                colourSquare.style.backgroundColor = DEFAULT_COLOUR;
+                colourSquare.addEventListener("mouseenter", () => {
+                    if (randomBtn.disabled) {
                         darkenSquare.style.backgroundColor = "rgba(0,0,0,0)";
-                        square.style.backgroundColor = `rgb(${randomColour()})`
-                    } else if (darken) {
+                        colourSquare.style.backgroundColor = `rgb(${randomColour()})`
+                    } else if (darkenBtn.disabled) {
                         darkenSquare.style.backgroundColor = `rgba(0,0,0,${darkenColour(darkenSquare)})`;
+                    } else if (eraserBtn.disabled) {
+                        darkenSquare.style.backgroundColor = "rgba(0,0,0,0)";
+                        colourSquare.style.backgroundColor = DEFAULT_COLOUR;
                     } else {
                         darkenSquare.style.backgroundColor = "rgba(0,0,0,0)";
-                        square.style.backgroundColor = colour;
+                        colourSquare.style.backgroundColor = chosenColour;
                     }
                 });
 
-                container.appendChild(square);
+                container.appendChild(colourSquare);
                 container.appendChild(darkenSquare);
                 row.appendChild(container);
             }
@@ -55,15 +66,15 @@
     };
 
     function randomColour() {
-        const red = Math.floor(Math.random() * 255);
-        const green = Math.floor(Math.random() * 255);
-        const blue = Math.floor(Math.random() * 255);
+        const red = Math.floor(Math.random() * 256);
+        const green = Math.floor(Math.random() * 256);
+        const blue = Math.floor(Math.random() * 256);
         
         return `${red},${green},${blue}`;
     };
 
     function darkenColour(square) {
-        let alpha = parseFloat(square.dataset.alpha) || 0;
+        let alpha = parseFloat(square.dataset.alpha);
         alpha = Math.round((alpha + 0.1) * 10) / 10;
         alpha = Math.min(alpha, 1);
         square.dataset.alpha = alpha;
@@ -71,11 +82,21 @@
         return alpha;
     }
 
+    function disableButtons(clickedBtn) {
+        clickedBtn.disabled = true;
+
+        buttons.forEach(button => {
+            if (button.id !== clickedBtn.id) {
+                button.disabled = false;
+            }
+        });
+    };
+
     resizeBtn.addEventListener("click", () => {
         let input = 0;
 
         do {
-            input = prompt("Please enter grid size (up to 100)");
+            input = prompt("Please enter grid size (maximum 100)");
 
             if (input === null) {
                 break;
@@ -83,28 +104,71 @@
 
             input = parseInt(input)
 
+            colourPicker.value = "#000000";
+            chosenColour = colourPicker.value;
+
+            grid.classList.add("grid-lines");
+            gridLines = true;
+
+            disableButtons(colourBtn);
             generateGrid(input);
 
         } while (input < 1 || input > 100 || isNaN(input))
     });
 
     colourPicker.addEventListener("change", () => {
-        colour = colourPicker.value;
-        random = false;
-        darken = false;
+        chosenColour = colourPicker.value;
+        disableButtons(colourBtn);
+    });
+
+    colourPicker.addEventListener("click", () => {
+        chosenColour = colourPicker.value;
+        disableButtons(colourBtn);
+    });
+
+    colourBtn.addEventListener("click", () => {
+        chosenColour = colourPicker.value;
+        disableButtons(colourBtn);
     });
 
     randomBtn.addEventListener("click", () => {
-        random = !random;
-        darken = false;
+        disableButtons(randomBtn);
     });
 
     darkenBtn.addEventListener("click", () => {
-        darken = !darken;
-        random = false;
+        disableButtons(darkenBtn);
     })
-});
+;
+    eraserBtn.addEventListener("click", () => {
+        disableButtons(eraserBtn);
+    });
 
-// add colour button
-// add eraser button
-// add clear button
+    gridBtn.addEventListener("click", () => {
+        if (gridLines) {
+            const squares = document.querySelectorAll(".square-container");
+            squares.forEach(square => {
+                square.classList.remove("grid-lines");
+            });
+
+            grid.classList.remove("grid-lines");
+
+            gridLines = false;
+        } else {
+            const squares = document.querySelectorAll(".square-container");
+            squares.forEach(square => {
+                square.classList.add("grid-lines");
+            });
+
+            grid.classList.add("grid-lines");
+
+            gridLines = true;
+        }
+    });
+
+    clearBtn.addEventListener("click", () => {
+        const squares = document.querySelectorAll(".square");
+        squares.forEach(square => {
+            square.style.backgroundColor = DEFAULT_COLOUR;
+        });
+    });
+});
