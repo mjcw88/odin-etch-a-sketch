@@ -104,6 +104,9 @@
 
             input = parseInt(input)
 
+        } while (input < 1 || input > 100 || isNaN(input))
+
+        if (input !== null && input >= 1 && input <= 100 && !isNaN(input)) {
             colourPicker.value = "#000000";
             chosenColour = colourPicker.value;
 
@@ -112,8 +115,7 @@
 
             disableButtons(colourBtn);
             generateGrid(input);
-
-        } while (input < 1 || input > 100 || isNaN(input))
+        }    
     });
 
     colourPicker.addEventListener("change", () => {
