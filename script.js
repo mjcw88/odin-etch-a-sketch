@@ -1,5 +1,5 @@
     document.addEventListener("DOMContentLoaded", function() {
-    const resizeBtn = document.querySelector(".resize-btn");
+    const resizeBtn = document.getElementById("resize-btn");
     const grid = document.getElementById("grid");
     const colourPicker = document.getElementById("colour");
     let chosenColour = colourPicker.value;
