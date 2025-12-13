@@ -1,8 +1,7 @@
-    document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
     const resizeBtn = document.getElementById("resize-btn");
     const grid = document.getElementById("grid");
     const colourPicker = document.getElementById("colour");
-    let chosenColour = colourPicker.value;
     const buttons = document.querySelectorAll("button");
     const colourBtn = document.getElementById("colour-btn");
     const randomBtn = document.getElementById("random-btn");
@@ -11,11 +10,12 @@
     const gridBtn = document.getElementById("grid-btn");
     const clearBtn = document.getElementById("clear-btn");
 
-    let gridLines = true;
-
     const DEFAULT_COLOUR = "#DBDBDB";
 
+    let chosenColour = colourPicker.value;
     let gridSize = 16;
+    let gridLines = true;
+
     generateGrid(gridSize);
 
     function generateGrid(gridSize) {
