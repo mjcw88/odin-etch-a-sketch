@@ -1,8 +1,12 @@
-# The Odin Project (Foundations) - Etch A Sketch
+# The Odin Project (Foundations) - Etch-a-Sketch 
 
-Etch A Sketch project for the Odin Project, featuring extensive DOM manipulation.
+Etch-a-Sketch project for the Odin Project, featuring extensive DOM manipulation.
 
 Hovering the mouse over the grid will colour it in depending on which button is pressed, by default this will be the "colour" button.
+
+Full project specs can be found [here](https://www.theodinproject.com/lessons/foundations-etch-a-sketch).
+
+---
 
 ##### Resize
 
@@ -32,6 +36,8 @@ The grid button toggles the grid lines visibility.
 
 The clear button clears the entire grid.
 
-#### Live Preview
+---
+
+##### Live Preview
 
 - Live preview: https://mjcw88.github.io/odin-etch-a-sketch/
