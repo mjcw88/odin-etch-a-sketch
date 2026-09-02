@@ -35,4 +35,4 @@ Full project specs can be found [here](https://www.theodinproject.com/lessons/fo
 
 ##### Live Preview
 
-- Live preview: https://mjcw88.github.io/odin-etch-a-sketch/
+- Live preview: https://thriftymeerkat.github.io/odin-etch-a-sketch/
